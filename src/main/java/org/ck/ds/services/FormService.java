@@ -66,7 +66,7 @@ public class FormService {
     }
 
 
-    public Form updateForm(int id, Form form) {
+    public Form updateForm(int id, FormDTO formDTO) {
         UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         int lawyerId = ((User) userDetails).getId();
 
@@ -84,8 +84,15 @@ public class FormService {
             throw new IllegalArgumentException("Unauthorized: You are not the primary lawyer for this form.");
         }
 
-        return formRepository.save(form);
+        // Update the form using the FormDTO object
+        existingForm.setSpouse1id(formDTO.getSpouse1id());
+        existingForm.setSpouse2id(formDTO.getSpouse2id());
+        existingForm.setLawyerSecondaryid(formDTO.getLawyerSecondaryid());
+        existingForm.setNotaryid(formDTO.getNotaryid());
+
+        return formRepository.save(existingForm);
     }
+
 
 
     public Form acceptForm(int formId) {

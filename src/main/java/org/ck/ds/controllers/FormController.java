@@ -44,8 +44,8 @@ public class FormController {
 
 
     @PutMapping("/lawyer/{id}")
-    public ResponseEntity<Form> updateForm(@PathVariable int id, @RequestBody Form form) {
-        Form updatedForm = formService.updateForm(id, form);
+    public ResponseEntity<Form> updateForm(@PathVariable int id, @RequestBody FormDTO formDTO) {
+        Form updatedForm = formService.updateForm(id, formDTO);
         if (updatedForm != null) {
             return ResponseEntity.ok(updatedForm);
         } else {
